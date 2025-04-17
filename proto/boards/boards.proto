@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option go_package = "pkg/api/boards";
+
+import "proto/types/types.proto";
+
+package boards;
+
+service Boards {
+  rpc CreateBoard(CreateBoardRequest) returns (CreateBoardResponse);
+  rpc GetBoard(GetBoardRequest) returns (GetBoardResponse);
+}
+
+message CreateBoardRequest {
+  string title = 1;
+}
+
+message CreateBoardResponse {
+  string id = 1;
+}
+
+message GetBoardRequest {
+  string id = 1;
+}
+
+message GetBoardResponse {
+  string id = 1;
+  string title = 2;
+  repeated types.Task tasks = 4;
+}

@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+option go_package = "pkg/api/projects";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+package projects;
+
+service Projects {
+    rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse);
+    rpc GetProject(GetProjectRequest) returns (GetProjectResponse);
+    rpc AddParticipant(AddParticipantRequest) returns (google.protobuf.Empty);
+    rpc DeleteProject(DeleteProjectRequest) returns (google.protobuf.Empty);
+}
+
+message CreateProjectRequest {
+    string title = 1;
+    string description = 2;
+}
+
+message CreateProjectResponse {
+    string id = 1;
+}
+
+message GetProjectRequest {
+    string id = 1;
+}
+
+message GetProjectResponse {
+    string id = 1;
+    string author_id = 2;
+    repeated string participants_id = 4;
+    string title = 5;
+    string description = 6;
+    google.protobuf.Timestamp created_at = 7;
+    google.protobuf.Timestamp updated_at = 8;
+}
+
+message DeleteProjectRequest {
+    string id = 1;
+}
+
+message AddParticipantRequest {
+    string project_id = 1;
+    string participant_email = 2;
+}

@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+option go_package = "pkg/api/tasks";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "proto/types/types.proto";
+
+package tasks;
+
+service Tasks {
+    rpc CreateTask(CreateTaskRequest) returns (CreateTaskResponse);
+    rpc GetAllTasks(google.protobuf.Empty) returns (GetAllTasksResponse);
+    rpc GetTasksByBoardID(GetTasksByBoardIDRequest) returns (GetAllTasksResponse);
+    rpc UpdateTask(UpdateTaskRequest) returns (UpdateTaskResponse);
+    rpc ChangeBoard(ChangeBoardRequest) returns (google.protobuf.Empty);
+    rpc DeleteTask(DeleteTaskRequest) returns (google.protobuf.Empty);
+}
+
+message CreateTaskRequest {
+    string board_id = 1;
+    string title = 2;
+    string description = 3;
+    google.protobuf.Timestamp deadline = 4;
+}
+
+message CreateTaskResponse {
+    string id = 1;
+    string board_id = 2;
+    string title = 3;
+    string description = 4;
+    google.protobuf.Timestamp deadline = 5;
+}
+
+message GetAllTasksResponse {
+    repeated types.Task tasks = 1;
+}
+
+message GetTasksByBoardIDRequest {
+    string board_id = 1;
+}
+
+message UpdateTaskRequest {
+    string id = 1;
+    string title = 2;
+    string description = 3;
+    google.protobuf.Timestamp deadline = 4;
+}
+
+message ChangeBoardRequest {
+    string id = 1;
+    string board_id = 2;
+}
+
+message UpdateTaskResponse {
+    types.Task task = 1;
+}
+
+message DeleteTaskRequest {
+    string id = 1;
+}

@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option go_package = "pkg/api/types";
+
+import "google/protobuf/timestamp.proto";
+
+package types;
+
+message Task {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  string author_id = 4;
+  string board_id = 5;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
+  google.protobuf.Timestamp deadline = 8;
+}
