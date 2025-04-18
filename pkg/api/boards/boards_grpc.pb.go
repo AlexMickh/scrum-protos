@@ -19,8 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Boards_CreateBoard_FullMethodName = "/boards.Boards/CreateBoard"
-	Boards_GetBoard_FullMethodName    = "/boards.Boards/GetBoard"
+	Boards_CreateBoard_FullMethodName  = "/boards.Boards/CreateBoard"
+	Boards_GetBoard_FullMethodName     = "/boards.Boards/GetBoard"
+	Boards_GetAllBoards_FullMethodName = "/boards.Boards/GetAllBoards"
 )
 
 // BoardsClient is the client API for Boards service.
@@ -29,6 +30,7 @@ const (
 type BoardsClient interface {
 	CreateBoard(ctx context.Context, in *CreateBoardRequest, opts ...grpc.CallOption) (*CreateBoardResponse, error)
 	GetBoard(ctx context.Context, in *GetBoardRequest, opts ...grpc.CallOption) (*GetBoardResponse, error)
+	GetAllBoards(ctx context.Context, in *GetAllBoardsRequest, opts ...grpc.CallOption) (*GetAllBoardsResponse, error)
 }
 
 type boardsClient struct {
@@ -59,12 +61,23 @@ func (c *boardsClient) GetBoard(ctx context.Context, in *GetBoardRequest, opts .
 	return out, nil
 }
 
+func (c *boardsClient) GetAllBoards(ctx context.Context, in *GetAllBoardsRequest, opts ...grpc.CallOption) (*GetAllBoardsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllBoardsResponse)
+	err := c.cc.Invoke(ctx, Boards_GetAllBoards_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BoardsServer is the server API for Boards service.
 // All implementations must embed UnimplementedBoardsServer
 // for forward compatibility.
 type BoardsServer interface {
 	CreateBoard(context.Context, *CreateBoardRequest) (*CreateBoardResponse, error)
 	GetBoard(context.Context, *GetBoardRequest) (*GetBoardResponse, error)
+	GetAllBoards(context.Context, *GetAllBoardsRequest) (*GetAllBoardsResponse, error)
 	mustEmbedUnimplementedBoardsServer()
 }
 
@@ -80,6 +93,9 @@ func (UnimplementedBoardsServer) CreateBoard(context.Context, *CreateBoardReques
 }
 func (UnimplementedBoardsServer) GetBoard(context.Context, *GetBoardRequest) (*GetBoardResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBoard not implemented")
+}
+func (UnimplementedBoardsServer) GetAllBoards(context.Context, *GetAllBoardsRequest) (*GetAllBoardsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllBoards not implemented")
 }
 func (UnimplementedBoardsServer) mustEmbedUnimplementedBoardsServer() {}
 func (UnimplementedBoardsServer) testEmbeddedByValue()                {}
@@ -138,6 +154,24 @@ func _Boards_GetBoard_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Boards_GetAllBoards_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllBoardsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BoardsServer).GetAllBoards(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Boards_GetAllBoards_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BoardsServer).GetAllBoards(ctx, req.(*GetAllBoardsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Boards_ServiceDesc is the grpc.ServiceDesc for Boards service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -152,6 +186,10 @@ var Boards_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetBoard",
 			Handler:    _Boards_GetBoard_Handler,
+		},
+		{
+			MethodName: "GetAllBoards",
+			Handler:    _Boards_GetAllBoards_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

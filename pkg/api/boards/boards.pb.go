@@ -25,6 +25,7 @@ const (
 type CreateBoardRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Title         string                 `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
+	ProjectId     string                 `protobuf:"bytes,2,opt,name=project_id,json=projectId,proto3" json:"project_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -62,6 +63,13 @@ func (*CreateBoardRequest) Descriptor() ([]byte, []int) {
 func (x *CreateBoardRequest) GetTitle() string {
 	if x != nil {
 		return x.Title
+	}
+	return ""
+}
+
+func (x *CreateBoardRequest) GetProjectId() string {
+	if x != nil {
+		return x.ProjectId
 	}
 	return ""
 }
@@ -214,13 +222,103 @@ func (x *GetBoardResponse) GetTasks() []*types.Task {
 	return nil
 }
 
+type GetAllBoardsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAllBoardsRequest) Reset() {
+	*x = GetAllBoardsRequest{}
+	mi := &file_proto_boards_boards_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAllBoardsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAllBoardsRequest) ProtoMessage() {}
+
+func (x *GetAllBoardsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_boards_boards_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAllBoardsRequest.ProtoReflect.Descriptor instead.
+func (*GetAllBoardsRequest) Descriptor() ([]byte, []int) {
+	return file_proto_boards_boards_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *GetAllBoardsRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+type GetAllBoardsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Boards        []*GetBoardResponse    `protobuf:"bytes,1,rep,name=boards,proto3" json:"boards,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAllBoardsResponse) Reset() {
+	*x = GetAllBoardsResponse{}
+	mi := &file_proto_boards_boards_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAllBoardsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAllBoardsResponse) ProtoMessage() {}
+
+func (x *GetAllBoardsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_boards_boards_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAllBoardsResponse.ProtoReflect.Descriptor instead.
+func (*GetAllBoardsResponse) Descriptor() ([]byte, []int) {
+	return file_proto_boards_boards_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *GetAllBoardsResponse) GetBoards() []*GetBoardResponse {
+	if x != nil {
+		return x.Boards
+	}
+	return nil
+}
+
 var File_proto_boards_boards_proto protoreflect.FileDescriptor
 
 const file_proto_boards_boards_proto_rawDesc = "" +
 	"\n" +
-	"\x19proto/boards/boards.proto\x12\x06boards\x1a\x17proto/types/types.proto\"*\n" +
+	"\x19proto/boards/boards.proto\x12\x06boards\x1a\x17proto/types/types.proto\"I\n" +
 	"\x12CreateBoardRequest\x12\x14\n" +
-	"\x05title\x18\x01 \x01(\tR\x05title\"%\n" +
+	"\x05title\x18\x01 \x01(\tR\x05title\x12\x1d\n" +
+	"\n" +
+	"project_id\x18\x02 \x01(\tR\tprojectId\"%\n" +
 	"\x13CreateBoardResponse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\"!\n" +
 	"\x0fGetBoardRequest\x12\x0e\n" +
@@ -228,10 +326,15 @@ const file_proto_boards_boards_proto_rawDesc = "" +
 	"\x10GetBoardResponse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x14\n" +
 	"\x05title\x18\x02 \x01(\tR\x05title\x12!\n" +
-	"\x05tasks\x18\x04 \x03(\v2\v.types.TaskR\x05tasks2\x8f\x01\n" +
+	"\x05tasks\x18\x04 \x03(\v2\v.types.TaskR\x05tasks\"%\n" +
+	"\x13GetAllBoardsRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\"H\n" +
+	"\x14GetAllBoardsResponse\x120\n" +
+	"\x06boards\x18\x01 \x03(\v2\x18.boards.GetBoardResponseR\x06boards2\xda\x01\n" +
 	"\x06Boards\x12F\n" +
 	"\vCreateBoard\x12\x1a.boards.CreateBoardRequest\x1a\x1b.boards.CreateBoardResponse\x12=\n" +
-	"\bGetBoard\x12\x17.boards.GetBoardRequest\x1a\x18.boards.GetBoardResponseB\x10Z\x0epkg/api/boardsb\x06proto3"
+	"\bGetBoard\x12\x17.boards.GetBoardRequest\x1a\x18.boards.GetBoardResponse\x12I\n" +
+	"\fGetAllBoards\x12\x1b.boards.GetAllBoardsRequest\x1a\x1c.boards.GetAllBoardsResponseB\x10Z\x0epkg/api/boardsb\x06proto3"
 
 var (
 	file_proto_boards_boards_proto_rawDescOnce sync.Once
@@ -245,25 +348,30 @@ func file_proto_boards_boards_proto_rawDescGZIP() []byte {
 	return file_proto_boards_boards_proto_rawDescData
 }
 
-var file_proto_boards_boards_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_proto_boards_boards_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_proto_boards_boards_proto_goTypes = []any{
-	(*CreateBoardRequest)(nil),  // 0: boards.CreateBoardRequest
-	(*CreateBoardResponse)(nil), // 1: boards.CreateBoardResponse
-	(*GetBoardRequest)(nil),     // 2: boards.GetBoardRequest
-	(*GetBoardResponse)(nil),    // 3: boards.GetBoardResponse
-	(*types.Task)(nil),          // 4: types.Task
+	(*CreateBoardRequest)(nil),   // 0: boards.CreateBoardRequest
+	(*CreateBoardResponse)(nil),  // 1: boards.CreateBoardResponse
+	(*GetBoardRequest)(nil),      // 2: boards.GetBoardRequest
+	(*GetBoardResponse)(nil),     // 3: boards.GetBoardResponse
+	(*GetAllBoardsRequest)(nil),  // 4: boards.GetAllBoardsRequest
+	(*GetAllBoardsResponse)(nil), // 5: boards.GetAllBoardsResponse
+	(*types.Task)(nil),           // 6: types.Task
 }
 var file_proto_boards_boards_proto_depIdxs = []int32{
-	4, // 0: boards.GetBoardResponse.tasks:type_name -> types.Task
-	0, // 1: boards.Boards.CreateBoard:input_type -> boards.CreateBoardRequest
-	2, // 2: boards.Boards.GetBoard:input_type -> boards.GetBoardRequest
-	1, // 3: boards.Boards.CreateBoard:output_type -> boards.CreateBoardResponse
-	3, // 4: boards.Boards.GetBoard:output_type -> boards.GetBoardResponse
-	3, // [3:5] is the sub-list for method output_type
-	1, // [1:3] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	6, // 0: boards.GetBoardResponse.tasks:type_name -> types.Task
+	3, // 1: boards.GetAllBoardsResponse.boards:type_name -> boards.GetBoardResponse
+	0, // 2: boards.Boards.CreateBoard:input_type -> boards.CreateBoardRequest
+	2, // 3: boards.Boards.GetBoard:input_type -> boards.GetBoardRequest
+	4, // 4: boards.Boards.GetAllBoards:input_type -> boards.GetAllBoardsRequest
+	1, // 5: boards.Boards.CreateBoard:output_type -> boards.CreateBoardResponse
+	3, // 6: boards.Boards.GetBoard:output_type -> boards.GetBoardResponse
+	5, // 7: boards.Boards.GetAllBoards:output_type -> boards.GetAllBoardsResponse
+	5, // [5:8] is the sub-list for method output_type
+	2, // [2:5] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_proto_boards_boards_proto_init() }
@@ -277,7 +385,7 @@ func file_proto_boards_boards_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_boards_boards_proto_rawDesc), len(file_proto_boards_boards_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

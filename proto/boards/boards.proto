@@ -9,10 +9,12 @@ package boards;
 service Boards {
   rpc CreateBoard(CreateBoardRequest) returns (CreateBoardResponse);
   rpc GetBoard(GetBoardRequest) returns (GetBoardResponse);
+  rpc GetAllBoards(GetAllBoardsRequest) returns (GetAllBoardsResponse);
 }
 
 message CreateBoardRequest {
   string title = 1;
+  string project_id = 2;
 }
 
 message CreateBoardResponse {
@@ -27,4 +29,12 @@ message GetBoardResponse {
   string id = 1;
   string title = 2;
   repeated types.Task tasks = 4;
+}
+
+message GetAllBoardsRequest {
+  string id = 1;
+}
+
+message GetAllBoardsResponse {
+  repeated GetBoardResponse boards = 1;
 }
