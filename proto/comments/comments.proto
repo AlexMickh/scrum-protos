@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option go_package = "pkg/api/comments";
+
+package comments;
+
+service Comments {
+    rpc CreateComment(CreateCommentRequest) returns (CreateCommentResponse);
+    rpc GetComments(GetCommentsRequest) returns (stream GetCommentsResponse);
+}
+
+message CreateCommentRequest {
+    string author_id = 1;
+    string task_id = 2;
+    string title = 3;
+    string description = 4;
+}
+
+message CreateCommentResponse {
+    string id = 1;
+}
+
+message GetCommentsRequest {
+    string task_id = 1;
+}
+
+message GetCommentsResponse {
+    string id = 1;
+    string author_id = 2;
+    string task_id = 3;
+    string title = 4;
+    string description = 5;
+}
