@@ -10,7 +10,6 @@ service Comments {
 }
 
 message CreateCommentRequest {
-    string author_id = 1;
     string task_id = 2;
     string title = 3;
     string description = 4;

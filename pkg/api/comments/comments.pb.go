@@ -23,7 +23,6 @@ const (
 
 type CreateCommentRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	AuthorId      string                 `protobuf:"bytes,1,opt,name=author_id,json=authorId,proto3" json:"author_id,omitempty"`
 	TaskId        string                 `protobuf:"bytes,2,opt,name=task_id,json=taskId,proto3" json:"task_id,omitempty"`
 	Title         string                 `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
 	Description   string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
@@ -59,13 +58,6 @@ func (x *CreateCommentRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use CreateCommentRequest.ProtoReflect.Descriptor instead.
 func (*CreateCommentRequest) Descriptor() ([]byte, []int) {
 	return file_proto_comments_comments_proto_rawDescGZIP(), []int{0}
-}
-
-func (x *CreateCommentRequest) GetAuthorId() string {
-	if x != nil {
-		return x.AuthorId
-	}
-	return ""
 }
 
 func (x *CreateCommentRequest) GetTaskId() string {
@@ -257,9 +249,8 @@ var File_proto_comments_comments_proto protoreflect.FileDescriptor
 
 const file_proto_comments_comments_proto_rawDesc = "" +
 	"\n" +
-	"\x1dproto/comments/comments.proto\x12\bcomments\"\x84\x01\n" +
-	"\x14CreateCommentRequest\x12\x1b\n" +
-	"\tauthor_id\x18\x01 \x01(\tR\bauthorId\x12\x17\n" +
+	"\x1dproto/comments/comments.proto\x12\bcomments\"g\n" +
+	"\x14CreateCommentRequest\x12\x17\n" +
 	"\atask_id\x18\x02 \x01(\tR\x06taskId\x12\x14\n" +
 	"\x05title\x18\x03 \x01(\tR\x05title\x12 \n" +
 	"\vdescription\x18\x04 \x01(\tR\vdescription\"'\n" +
