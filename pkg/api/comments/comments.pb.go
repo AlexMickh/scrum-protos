@@ -169,7 +169,7 @@ func (x *GetCommentsRequest) GetTaskId() string {
 	return ""
 }
 
-type GetCommentsResponse struct {
+type Comment struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	AuthorId      string                 `protobuf:"bytes,2,opt,name=author_id,json=authorId,proto3" json:"author_id,omitempty"`
@@ -180,9 +180,81 @@ type GetCommentsResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
+func (x *Comment) Reset() {
+	*x = Comment{}
+	mi := &file_proto_comments_comments_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Comment) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Comment) ProtoMessage() {}
+
+func (x *Comment) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_comments_comments_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Comment.ProtoReflect.Descriptor instead.
+func (*Comment) Descriptor() ([]byte, []int) {
+	return file_proto_comments_comments_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *Comment) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *Comment) GetAuthorId() string {
+	if x != nil {
+		return x.AuthorId
+	}
+	return ""
+}
+
+func (x *Comment) GetTaskId() string {
+	if x != nil {
+		return x.TaskId
+	}
+	return ""
+}
+
+func (x *Comment) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *Comment) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+type GetCommentsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Comments      []*Comment             `protobuf:"bytes,1,rep,name=comments,proto3" json:"comments,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
 func (x *GetCommentsResponse) Reset() {
 	*x = GetCommentsResponse{}
-	mi := &file_proto_comments_comments_proto_msgTypes[3]
+	mi := &file_proto_comments_comments_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -194,7 +266,7 @@ func (x *GetCommentsResponse) String() string {
 func (*GetCommentsResponse) ProtoMessage() {}
 
 func (x *GetCommentsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_comments_comments_proto_msgTypes[3]
+	mi := &file_proto_comments_comments_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -207,42 +279,14 @@ func (x *GetCommentsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCommentsResponse.ProtoReflect.Descriptor instead.
 func (*GetCommentsResponse) Descriptor() ([]byte, []int) {
-	return file_proto_comments_comments_proto_rawDescGZIP(), []int{3}
+	return file_proto_comments_comments_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *GetCommentsResponse) GetId() string {
+func (x *GetCommentsResponse) GetComments() []*Comment {
 	if x != nil {
-		return x.Id
+		return x.Comments
 	}
-	return ""
-}
-
-func (x *GetCommentsResponse) GetAuthorId() string {
-	if x != nil {
-		return x.AuthorId
-	}
-	return ""
-}
-
-func (x *GetCommentsResponse) GetTaskId() string {
-	if x != nil {
-		return x.TaskId
-	}
-	return ""
-}
-
-func (x *GetCommentsResponse) GetTitle() string {
-	if x != nil {
-		return x.Title
-	}
-	return ""
-}
-
-func (x *GetCommentsResponse) GetDescription() string {
-	if x != nil {
-		return x.Description
-	}
-	return ""
+	return nil
 }
 
 var File_proto_comments_comments_proto protoreflect.FileDescriptor
@@ -257,13 +301,15 @@ const file_proto_comments_comments_proto_rawDesc = "" +
 	"\x15CreateCommentResponse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\"-\n" +
 	"\x12GetCommentsRequest\x12\x17\n" +
-	"\atask_id\x18\x01 \x01(\tR\x06taskId\"\x93\x01\n" +
-	"\x13GetCommentsResponse\x12\x0e\n" +
+	"\atask_id\x18\x01 \x01(\tR\x06taskId\"\x87\x01\n" +
+	"\aComment\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1b\n" +
 	"\tauthor_id\x18\x02 \x01(\tR\bauthorId\x12\x17\n" +
 	"\atask_id\x18\x03 \x01(\tR\x06taskId\x12\x14\n" +
 	"\x05title\x18\x04 \x01(\tR\x05title\x12 \n" +
-	"\vdescription\x18\x05 \x01(\tR\vdescription2\xaa\x01\n" +
+	"\vdescription\x18\x05 \x01(\tR\vdescription\"D\n" +
+	"\x13GetCommentsResponse\x12-\n" +
+	"\bcomments\x18\x01 \x03(\v2\x11.comments.CommentR\bcomments2\xaa\x01\n" +
 	"\bComments\x12P\n" +
 	"\rCreateComment\x12\x1e.comments.CreateCommentRequest\x1a\x1f.comments.CreateCommentResponse\x12L\n" +
 	"\vGetComments\x12\x1c.comments.GetCommentsRequest\x1a\x1d.comments.GetCommentsResponse0\x01B\x12Z\x10pkg/api/commentsb\x06proto3"
@@ -280,23 +326,25 @@ func file_proto_comments_comments_proto_rawDescGZIP() []byte {
 	return file_proto_comments_comments_proto_rawDescData
 }
 
-var file_proto_comments_comments_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_proto_comments_comments_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_proto_comments_comments_proto_goTypes = []any{
 	(*CreateCommentRequest)(nil),  // 0: comments.CreateCommentRequest
 	(*CreateCommentResponse)(nil), // 1: comments.CreateCommentResponse
 	(*GetCommentsRequest)(nil),    // 2: comments.GetCommentsRequest
-	(*GetCommentsResponse)(nil),   // 3: comments.GetCommentsResponse
+	(*Comment)(nil),               // 3: comments.Comment
+	(*GetCommentsResponse)(nil),   // 4: comments.GetCommentsResponse
 }
 var file_proto_comments_comments_proto_depIdxs = []int32{
-	0, // 0: comments.Comments.CreateComment:input_type -> comments.CreateCommentRequest
-	2, // 1: comments.Comments.GetComments:input_type -> comments.GetCommentsRequest
-	1, // 2: comments.Comments.CreateComment:output_type -> comments.CreateCommentResponse
-	3, // 3: comments.Comments.GetComments:output_type -> comments.GetCommentsResponse
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	3, // 0: comments.GetCommentsResponse.comments:type_name -> comments.Comment
+	0, // 1: comments.Comments.CreateComment:input_type -> comments.CreateCommentRequest
+	2, // 2: comments.Comments.GetComments:input_type -> comments.GetCommentsRequest
+	1, // 3: comments.Comments.CreateComment:output_type -> comments.CreateCommentResponse
+	4, // 4: comments.Comments.GetComments:output_type -> comments.GetCommentsResponse
+	3, // [3:5] is the sub-list for method output_type
+	1, // [1:3] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_proto_comments_comments_proto_init() }
@@ -310,7 +358,7 @@ func file_proto_comments_comments_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_comments_comments_proto_rawDesc), len(file_proto_comments_comments_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -23,10 +23,14 @@ message GetCommentsRequest {
     string task_id = 1;
 }
 
-message GetCommentsResponse {
+message Comment {
     string id = 1;
     string author_id = 2;
     string task_id = 3;
     string title = 4;
     string description = 5;
+}
+
+message GetCommentsResponse {
+    repeated Comment comments = 1;
 }
